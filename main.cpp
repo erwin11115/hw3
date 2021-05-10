@@ -565,8 +565,8 @@ void tiltDetective() {
 
 
 
-    printf("enter angle detection mode\r\n");
-    printf("Place the mbed on table after LEDs\r\n");
+    printf("angle detection mode\r\n");
+    printf("Place the mbed on table\r\n");
     ThisThread::sleep_for(2000ms);
     for (int i=0; i<5; i++) {
         led3 = 1;                            // use LED3 to show the initialization process
@@ -576,7 +576,7 @@ void tiltDetective() {
     }
     
     BSP_ACCELERO_AccGetXYZ(pDataXYZ_init);
-    printf("reference acceleration vector: %d, %d, %d\r\n", pDataXYZ_init[0], pDataXYZ_init[1], pDataXYZ_init[2]);
+    printf("reference acceleration vector: (%d, %d, %d)\r\n", pDataXYZ_init[0], pDataXYZ_init[1], pDataXYZ_init[2]);
 
     printf("Tilt the mbed after LEDs\r\n");
     ThisThread::sleep_for(2000ms);
@@ -590,10 +590,10 @@ void tiltDetective() {
                 // tile Angle_Detection mode
     while (mode) {
         BSP_ACCELERO_AccGetXYZ(pDataXYZ);
-        printf("Angle Detection: %d %d %d\r\n",pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
-        mag_A = sqrt(pDataXYZ_init[0]*pDataXYZ_init[0] + pDataXYZ_init[1]*pDataXYZ_init[1] + pDataXYZ_init[2]*pDataXYZ_init[2]);
-        mag_B = sqrt(pDataXYZ[0]*pDataXYZ[0] + pDataXYZ[1]*pDataXYZ[1] + pDataXYZ[2]*pDataXYZ[2]);
-        cos = ((pDataXYZ_init[0]*pDataXYZ[0] + pDataXYZ_init[1]*pDataXYZ[1] + pDataXYZ_init[2]*pDataXYZ[2])/(mag_A)/(mag_B));
+        printf ("Angle Detection: %d %d %d\r\n",pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
+        mag_A = sqrt(pDataXYZ_init[0] * pDataXYZ_init[0] + pDataXYZ_init[1] * pDataXYZ_init[1] + pDataXYZ_init[2] * pDataXYZ_init[2]);
+        mag_B = sqrt(pDataXYZ[0] * pDataXYZ[0] + pDataXYZ[1] * pDataXYZ[1] + pDataXYZ[2] * pDataXYZ[2]);
+        cos = ((pDataXYZ_init[0] * pDataXYZ[0] + pDataXYZ_init[1] * pDataXYZ[1] + pDataXYZ_init[2] * pDataXYZ[2])/(mag_A)/(mag_B));
         rad_det = acos(cos);
         angle_det = 180.0 * rad_det/3.1415926;
         printf("angle_det = %f\r\n", angle_det);
