@@ -11,6 +11,18 @@ topic2 = "Mbed2"
 serdev = '/dev/ttyACM0'
 s = serial.Serial(serdev, 9600)
 
+upbound = 10
+overtilt = []
+num = 0
+
+def countFunc():
+    if(countFunc.count < 11):
+        countFunc.count += 1
+    else:
+        countFunc.count = 1
+    return countFunc.count
+
+countFunc.count = 0
 
 def on_connect(self, mosq, obj, rc):
     print("Connected rc: " + str(rc))
@@ -25,7 +37,13 @@ def on_message(mosq, obj, msg):
 
     if msg.topic == 'Mbed2':
         print("mbed2 got")
-        s.write("/broker/run\r\n".encode())
+        if(countFunc() < upbound):
+            overtilt.append(str(msg.payload)[2:4])
+        else:
+            overtilt.append(str(msg.payload)[2:4])
+            for i in overtilt:
+                print(i)
+            s.write("/broker/run\r\n".encode())
     
 
 def on_subscribe(mosq, obj, mid, granted_qos):
