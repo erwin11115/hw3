@@ -28,7 +28,7 @@ using namespace std::chrono;
 using namespace std;
 
 
-
+double angle_det;
 
 InterruptIn button(USER_BUTTON);
 
@@ -447,7 +447,7 @@ void publish_message(MQTT::Client<MQTTNetwork, Countdown>* client) {
     } else {
       topic = topic2;
       printf("topic2\n");
-      sprintf(buff, "%d\r\n", angle_list[angle_index]);
+      sprintf(buff, "%d\r\n",int(angle_det));
     }
 
     
@@ -508,7 +508,7 @@ void tiltDetective() {
     double mag_B;
     double cos;
     double rad_det;
-    double angle_det;
+    //double angle_det;
     //int idR[32] = {0};
     //int indexR = 0;
 
